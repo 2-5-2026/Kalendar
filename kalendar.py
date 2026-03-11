@@ -12,7 +12,7 @@ class KalendarGUI:
         self.lbl_mjesec.grid(row=0, column=1, padx=20)
         self.btn_next = tk.Button(top_frame, text="▶", width=5)
         self.btn_next.grid(row=0, column=2, padx=5)
-        self.btn_kalkulator = tk.Button(root, text="🧮 Kalkulator datuma", width=20)
+        self.btn_kalkulator = tk.Button(root, text="Kalkulator datuma", width=20)
         self.btn_kalkulator.pack(pady=5)
 
         okvir = tk.Frame(root)
@@ -38,3 +38,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = KalendarGUI(root)
     root.mainloop()
+
