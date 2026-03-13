@@ -1,0 +1,88 @@
+import tkinter as tk     # za GUI; reimenovano
+import calendar          # za kalendar itd.
+
+class KalendarGUI:       
+    def __init__(self, root):     # self-objekt; root-taj(glavni) GUI prozor   
+        self.root = root          
+        self.root.title("Kalendar")     
+
+        # prvi mjesec i godina; tako će kretat jedino ako ne napravimo neš
+        #crazy i postavimo da se podaci pamte
+        self.month = 1
+        self.year = 2026
+
+        top_frame = tk.Frame(root)   #okvir u kojem je sve  
+        top_frame.pack(pady=40)
+
+        #gumb za ić na prošli mjesec
+        self.gumb_iza = tk.Button(top_frame, text="◀", width=5, command=self.prev_month)
+        self.gumb_iza.grid(row=0, column=0, padx=5)
+
+        #gumb za ić na sljed mjesec
+        self.gumb_sljed = tk.Button(top_frame, text="▶", width=5, command=self.next_month)
+        self.gumb_sljed.grid(row=0, column=2, padx=5)
+
+        #nazivi mjeseca
+        self.lbl_mjesec = tk.Label(top_frame, text="Siječanj 2026", font=("Arial", 16))
+        self.lbl_mjesec.grid(row=0, column=1, padx=20)
+
+        #gumb za onaj kalkulator ak ga napravimo
+        self.gumb_kalkulator = tk.Button(root, text="Kalkulator datuma", width=20)
+        self.gumb_kalkulator.pack(pady=5)
+
+        okvir = tk.Frame(root) #okvir u kojem su neke stvari
+        okvir.pack(pady=10)
+
+        #nazivi dana - to je samo izgled ig
+        dani = ["Pon", "Uto", "Sri", "Čet", "Pet", "Sub", "Ned"]
+        for col in range(7):
+            lbl = tk.Label(okvir, text=dani[col], font=("Arial", 10, "bold"), width=8)
+            lbl.grid(row=0, column=col, padx=2, pady=2)
+
+        #gumbi za dane
+        self.dani_buttons = []
+
+        for row in range(1, 7):
+            row_buttons = []
+
+            for col in range(7):
+                btn = tk.Button(okvir, text="", width=8, height=3)
+                btn.grid(row=row, column=col, padx=2, pady=2)
+                row_buttons.append(btn)
+
+            self.dani_buttons.append(row_buttons)
+
+    #funkcija za update teksta mjeseca
+    def update_label(self):
+        mjeseci = [
+            "Siječanj","Veljača","Ožujak","Travanj","Svibanj","Lipanj",
+            "Srpanj","Kolovoz","Rujan","Listopad","Studeni","Prosinac"
+        ]
+
+        self.lbl_mjesec.config(text=f"{mjeseci[self.month-1]} {self.year}")
+
+    #prošli mjesec
+    def prev_month(self):
+        self.month -= 1
+
+        if self.month < 1:
+            self.month = 12
+            self.year -= 1
+
+        self.update_label()
+
+    #sljedeći mjesec
+    def next_month(self):
+        self.month += 1
+
+        if self.month > 12:
+            self.month = 1
+            self.year += 1
+
+        self.update_label()
+
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = KalendarGUI(root) 
+    root.mainloop()            # kraj
