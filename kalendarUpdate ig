@@ -54,35 +54,32 @@ class KalendarGUI:
 
     #funkcija za update teksta mjeseca
     def update_label(self):
-        mjeseci = [
-            "Siječanj","Veljača","Ožujak","Travanj","Svibanj","Lipanj",
-            "Srpanj","Kolovoz","Rujan","Listopad","Studeni","Prosinac"
-        ]
+        mjeseci = ["Siječanj","Veljača","Ožujak","Travanj","Svibanj","Lipanj","Srpanj","Kolovoz","Rujan","Listopad","Studeni","Prosinac"]
 
         self.lbl_mjesec.config(text=f"{mjeseci[self.month-1]} {self.year}")
 
     #prošli mjesec
     def prev_month(self):
-        self.month -= 1
+        self.month-=1
 
         if self.month < 1:
-            self.month = 12
-            self.year -= 1
+            self.month=12
+            self.year-=1
 
         self.update_label()
 
     #sljedeći mjesec
     def next_month(self):
-        self.month += 1
+        self.month+=1
 
         if self.month > 12:
-            self.month = 1
-            self.year += 1
+            self.month=1
+            self.year+=1
 
         self.update_label()
 
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = KalendarGUI(root) 
+    root=tk.Tk()
+    app=KalendarGUI(root) 
     root.mainloop()            # kraj
