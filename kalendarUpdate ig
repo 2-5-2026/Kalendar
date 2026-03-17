@@ -11,30 +11,30 @@ class KalendarGUI:
         self.month = 1
         self.year = 2026
 
-        top_frame = tk.Frame(root)   #okvir u kojem je sve  
+        top_frame=tk.Frame(root)   #okvir u kojem je sve  
         top_frame.pack(pady=40)
 
         #gumb za ić na prošli mjesec
         self.gumb_iza = tk.Button(top_frame, text="◀", width=5, command=self.prev_month)
-        self.gumb_iza.grid(row=0, column=0, padx=5)
+        self.gumb_iza.grid(row=0,column=0,padx=5)
 
         #gumb za ić na sljed mjesec
-        self.gumb_sljed = tk.Button(top_frame, text="▶", width=5, command=self.next_month)
-        self.gumb_sljed.grid(row=0, column=2, padx=5)
+        self.gumb_sljed=tk.Button(top_frame, text="▶", width=5, command=self.next_month)
+        self.gumb_sljed.grid(row=0,column=2,padx=5)
 
         #nazivi mjeseca
         self.lbl_mjesec = tk.Label(top_frame, text="Siječanj 2026", font=("Arial", 16))
-        self.lbl_mjesec.grid(row=0, column=1, padx=20)
+        self.lbl_mjesec.grid(row=0,column=1,padx=20)
 
         #gumb za onaj kalkulator ak ga napravimo
-        self.gumb_kalkulator = tk.Button(root, text="Kalkulator datuma", width=20)
+        self.gumb_kalkulator = tk.Button(root,text="Kalkulator datuma", width=20)
         self.gumb_kalkulator.pack(pady=5)
 
         okvir = tk.Frame(root) #okvir u kojem su neke stvari
         okvir.pack(pady=10)
 
         #nazivi dana - to je samo izgled ig
-        dani = ["Pon", "Uto", "Sri", "Čet", "Pet", "Sub", "Ned"]
+        dani = ["Pon","Uto","Sri","Čet","Pet","Sub","Ned"]
         for col in range(7):
             lbl = tk.Label(okvir, text=dani[col], font=("Arial", 10, "bold"), width=8)
             lbl.grid(row=0, column=col, padx=2, pady=2)
