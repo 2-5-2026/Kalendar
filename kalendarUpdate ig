@@ -82,4 +82,4 @@ class KalendarGUI:
 if __name__ == "__main__":
     root=tk.Tk()
     app=KalendarGUI(root) 
-    root.mainloop()            # kraj
+    root.mainloop()            # kraj koda da ne nastavi u beskonačnost
