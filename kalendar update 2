@@ -1,6 +1,7 @@
 import tkinter as tk
 import calendar
 from tkinter import simpledialog, messagebox
+import json
 
 class KalendarGUI:
     def __init__(self, root):
@@ -9,7 +10,12 @@ class KalendarGUI:
 
         self.month = 1
         self.year = 2026
-        self.events = {}  # {(dan, mjesec, godina): [event1, event2, ...]}
+        self.events_file = "dogadjaji.json"
+        try:
+            with open(self.events_file, "r") as f:
+                self.events = {tuple(map(int, k.split(","))): v for k,v in json.load(f).items()}
+        except FileNotFoundError:
+            self.events = {}
 
         top_frame = tk.Frame(root)
         top_frame.pack(pady=40)
@@ -102,6 +108,7 @@ class KalendarGUI:
             if key not in self.events:
                 self.events[key] = []
             self.events[key].append(event)
+            self.spremi_događaje()
             self.prikaz()
             messagebox.showinfo("Spremno", f"Događaj spremljen za {key[0]}.{key[1]}.{key[2]}.")
 
@@ -136,9 +143,11 @@ class KalendarGUI:
         del self.events[key][idx]
         if not self.events[key]:
             del self.events[key]
+        self.spremi_događaje()
         self.prikaz()
         top.destroy()
-        self.prikaz_događaja(key) if key in self.events else None
+        if key in self.events:
+            self.prikaz_događaja(key)
 
     def kalkulator_datuma(self):
         datum_str = simpledialog.askstring("Kalkulator datuma", "Unesi datum (dd.mm.gggg.):")
@@ -151,6 +160,12 @@ class KalendarGUI:
                 messagebox.showinfo("Dan u tjednu", f"{d}.{m}.{g}. je {dan_tjedna}.")
             except:
                 messagebox.showerror("Greška", "Neispravan format datuma! Koristi dd.mm.gggg.")
+
+    def spremi_događaje(self):
+        # Spremi rječnik u json, pretvorimo tuple u string
+        s = {f"{k[0]},{k[1]},{k[2]}": v for k, v in self.events.items()}
+        with open(self.events_file, "w") as f:
+            json.dump(s, f)
 
 if __name__ == "__main__":
     root = tk.Tk()
